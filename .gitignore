@@ -1,0 +1,43 @@
+# ── Secrets & Personal Docs ─────────────────────────────────
+.env
+AirPulse_Codex_Kickoff_Prompt.md
+
+# ── Virtual environment ─────────────────────────────────────
+.venv/
+
+# ── Python ──────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# ── Data cache (local only, not committed) ──────────────────
+data/*
+!data/.gitkeep
+
+# ── Jupyter notebooks (keep gitkeep, ignore outputs) ────────
+notebooks/*
+!notebooks/.gitkeep
+
+# ── Terraform ───────────────────────────────────────────────
+infra/terraform/.terraform/
+infra/terraform/*.tfstate
+infra/terraform/*.tfstate.backup
+infra/terraform/*.tfplan
+
+# ── MLflow local artifacts ──────────────────────────────────
+mlruns/
+mlartifacts/
+
+# ── Docker ──────────────────────────────────────────────────
+*.tar
+
+# ── IDE ─────────────────────────────────────────────────────
+.vscode/
+.idea/
+.agents/
+
+# ── OS ──────────────────────────────────────────────────────
+Thumbs.db
+.DS_Store
