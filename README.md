@@ -26,7 +26,7 @@ Mumbai · Delhi · Bangalore · Chennai · Kolkata
 | Phase | Focus | Status |
 |-------|-------|--------|
 | 0 | Project scaffold & environment | ✅ Done |
-| 1 | Data pipeline (ingestion → S3) | ⬜ |
+| 1 | Data pipeline (ingestion → S3) | ✅ Done |
 | 2 | Feature engineering & baseline model | ⬜ |
 | 3 | Serving (FastAPI + frontend + Docker) | ⬜ |
 | 4 | CI/CD (GitHub Actions) | ⬜ |

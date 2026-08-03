@@ -44,6 +44,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "raw_lifecycle" {
     id     = "expire-raw-after-90-days"
     status = "Enabled"
 
+    filter {}
+
     expiration {
       days = 90
     }
