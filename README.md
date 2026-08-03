@@ -75,13 +75,16 @@ python -m venv .venv
 .venv\Scripts\activate        # Windows
 # source .venv/bin/activate   # Linux/macOS
 
-# 3. Install PyTorch (GPU — must use cu128 wheel index)
-pip install torch==2.10.0+cu128 --index-url https://download.pytorch.org/whl/cu128
+# 3. Pre-install PyTorch dependencies (workaround for cu128 metadata bug)
+pip install typing-extensions filelock jinja2 sympy fsspec networkx
 
-# 4. Install remaining dependencies
+# 4. Install PyTorch (GPU — must use cu128 wheel index)
+pip install torch==2.10.0+cu128 --index-url https://download.pytorch.org/whl/cu128 --no-deps
+
+# 5. Install remaining dependencies
 pip install -r requirements.txt
 
-# 5. Copy environment template
+# 6. Copy environment template
 copy .env.example .env        # Windows
 # cp .env.example .env        # Linux/macOS
 # Then fill in your API keys and credentials

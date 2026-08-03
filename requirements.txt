@@ -2,11 +2,17 @@
 # AirPulse — Python Dependencies
 # PyTorch 2.10.0+cu128 must be installed manually first.
 #
+# NOTE: The cu128 wheel index has a metadata bug — pip rejects
+# typing-extensions and jinja2 wheels due to inconsistent Name
+# fields. The workaround is to pre-install torch's deps from
+# PyPI, then install torch itself with --no-deps.
+#
 # INSTALL ORDER:
 #   1. python -m venv .venv
 #   2. .venv\Scripts\activate
-#   3. pip install torch==2.10.0+cu128 --index-url https://download.pytorch.org/whl/cu128
-#   4. pip install -r requirements.txt
+#   3. pip install typing-extensions filelock jinja2 sympy fsspec networkx
+#   4. pip install torch==2.10.0+cu128 --index-url https://download.pytorch.org/whl/cu128 --no-deps
+#   5. pip install -r requirements.txt
 # ============================================================
 
 # ── Environment & Config ──────────────────────────────────
