@@ -79,6 +79,13 @@ S3_PREFIX_OPENAQ = "openaq"
 S3_PREFIX_OPENMETEO = "openmeteo"
 
 # ---------------------------------------------------------------------------
+# MLflow Experiment Tracking & Model Registry settings
+# ---------------------------------------------------------------------------
+MLFLOW_TRACKING_URI: str = os.getenv("MLFLOW_TRACKING_URI", "sqlite:///" + str((_PROJECT_ROOT / "mlflow.db").as_posix()))
+MLFLOW_EXPERIMENT_NAME: str = "AirPulse-AQI-Forecast"
+MODEL_REGISTRY_NAME: str = "airpulse-forecaster"
+
+# ---------------------------------------------------------------------------
 # Local data cache (for --dry-run or offline testing)
 # ---------------------------------------------------------------------------
 LOCAL_DATA_DIR = _PROJECT_ROOT / "data"
