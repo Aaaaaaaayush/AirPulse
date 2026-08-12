@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const labels = forecastList.map(p => {
       const date = new Date(p.timestamp);
-      return date.toLocaleTimeString([], { hour: '2-digit', minute: '00' });
+      return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     });
 
     const aqiValues = forecastList.map(p => p.aqi);

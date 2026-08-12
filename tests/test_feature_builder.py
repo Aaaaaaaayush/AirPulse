@@ -5,14 +5,14 @@ Unit tests for Phase 2 Feature Builder & Chronological Split.
 import pandas as pd
 import pytest
 from src.features.feature_builder import build_features, get_feature_columns, split_chronological
-from src.features.generate_historical_data import _generate_city_series
+from src.features.generate_historical_data import _generate_city_series_fallback
 
 
 @pytest.fixture
 def sample_dataset() -> pd.DataFrame:
     records = []
-    records.extend(_generate_city_series("mumbai", n_hours=120, seed=1))
-    records.extend(_generate_city_series("delhi", n_hours=120, seed=2))
+    records.extend(_generate_city_series_fallback("mumbai", n_hours=120, seed=1))
+    records.extend(_generate_city_series_fallback("delhi", n_hours=120, seed=2))
     df = pd.DataFrame(records)
     return df
 

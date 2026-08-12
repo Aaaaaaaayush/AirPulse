@@ -60,6 +60,7 @@ OPENAQ_RATE_LIMIT_RPM: int = 60        # free-tier rate limit (requests/min)
 # Open-Meteo settings
 # ---------------------------------------------------------------------------
 OPENMETEO_BASE_URL = "https://api.open-meteo.com/v1/forecast"
+OPENMETEO_AQ_BASE_URL = "https://air-quality-api.open-meteo.com/v1/air-quality"
 OPENMETEO_HOURLY_VARS = [
     "temperature_2m",
     "relative_humidity_2m",

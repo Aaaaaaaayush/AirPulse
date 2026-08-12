@@ -5,7 +5,7 @@ Unit tests for Baseline LightGBM Model & Evaluation Metrics.
 import numpy as np
 import pandas as pd
 from src.features.feature_builder import build_features, split_chronological
-from src.features.generate_historical_data import _generate_city_series
+from src.features.generate_historical_data import _generate_city_series_fallback
 from src.training.baseline_model import AirPulseBaselineModel, calculate_metrics
 
 
@@ -25,8 +25,8 @@ def test_calculate_metrics():
 
 def test_baseline_model_fit_predict():
     records = []
-    records.extend(_generate_city_series("mumbai", n_hours=150, seed=1))
-    records.extend(_generate_city_series("delhi", n_hours=150, seed=2))
+    records.extend(_generate_city_series_fallback("mumbai", n_hours=150, seed=1))
+    records.extend(_generate_city_series_fallback("delhi", n_hours=150, seed=2))
     df_raw = pd.DataFrame(records)
 
     df_feat = build_features(df_raw, forecast_horizon=24)
