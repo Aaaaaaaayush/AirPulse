@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AirPulse — AI Air Quality Forecasting</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- Navbar / Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="brand-logo">🌫️</div>
+        <div>
+          <h1 class="brand-title">AirPulse</h1>
+        </div>
+      </div>
+      <div class="brand-badge">Self-Improving MLOps</div>
+    </header>
+
+    <!-- City Switcher Pills -->
+    <nav class="city-nav">
+      <button class="city-pill active" data-city="mumbai">Mumbai</button>
+      <button class="city-pill" data-city="delhi">Delhi</button>
+      <button class="city-pill" data-city="bangalore">Bangalore</button>
+      <button class="city-pill" data-city="chennai">Chennai</button>
+      <button class="city-pill" data-city="kolkata">Kolkata</button>
+    </nav>
+
+    <!-- Main Dashboard Grid -->
+    <main class="hero-grid">
+      
+      <!-- Current AQI & Weather Card -->
+      <section class="card current-aqi-card">
+        <div>
+          <div class="card-label">Live Status</div>
+          <h2 class="city-name-header" id="cityName">Mumbai</h2>
+          <div class="aqi-number-container">
+            <span class="aqi-number" id="currentAqi">--</span>
+            <span class="aqi-unit">AQI</span>
+          </div>
+          <div class="aqi-pill" id="aqiBadge" style="background-color: #F59E0B;">Moderate</div>
+        </div>
+
+        <div class="weather-stats-grid">
+          <div class="weather-stat-box">
+            <div class="weather-stat-label">Temp</div>
+            <div class="weather-stat-value" id="tempVal">-- °C</div>
+          </div>
+          <div class="weather-stat-box">
+            <div class="weather-stat-label">Humidity</div>
+            <div class="weather-stat-value" id="humidityVal">-- %</div>
+          </div>
+          <div class="weather-stat-box">
+            <div class="weather-stat-label">Wind</div>
+            <div class="weather-stat-value" id="windVal">-- km/h</div>
+          </div>
+          <div class="weather-stat-box">
+            <div class="weather-stat-label">Rain</div>
+            <div class="weather-stat-value" id="precipVal">-- mm</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Forecast Chart Card -->
+      <section class="card chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title">24-Hour Predicted AQI Trajectory</h3>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Updated: <span id="lastUpdated">--</span></span>
+        </div>
+        <div class="chart-container">
+          <canvas id="forecastChart"></canvas>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="meta-status">
+        <div class="status-dot"></div>
+        <span>Inference Service Online</span>
+      </div>
+      <div>
+        <span>Model Registry: <strong id="modelVer" style="color: var(--accent-cyan);">v2</strong></span>
+        <span style="margin: 0 0.5rem;">•</span>
+        <span>Stage: <strong id="modelStage" style="color: var(--accent-purple);">Production</strong></span>
+      </div>
+      <div>
+        <span>LightGBM • MLflow • FastAPI</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

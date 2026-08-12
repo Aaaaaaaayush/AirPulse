@@ -28,7 +28,7 @@ Mumbai · Delhi · Bangalore · Chennai · Kolkata
 | 0 | Project scaffold & environment | ✅ Done |
 | 1 | Data pipeline (ingestion → S3) | ✅ Done |
 | 2 | Feature engineering & baseline model | ✅ Done |
-| 3 | Serving (FastAPI + frontend + Docker) | ⬜ |
+| 3 | Serving (FastAPI + frontend + Docker) | ✅ Done |
 | 4 | CI/CD (GitHub Actions) | ⬜ |
 | 5 | Drift detection & automated retraining | ⬜ |
 | 6 | Orchestration & monitoring (k3s) | ⬜ |
