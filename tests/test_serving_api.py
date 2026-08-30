@@ -2,9 +2,23 @@
 Unit and Integration Tests for FastAPI Serving Endpoints.
 """
 
+import lightgbm as lgb
+import numpy as np
 import pytest
 from httpx import AsyncClient, ASGITransport
-from src.serving.app import app
+from src.serving.app import app, model_mgr
+
+
+@pytest.fixture(autouse=True)
+def setup_test_model():
+    """Ensure API tests execute with an in-memory LightGBM model for speed and isolation."""
+    if model_mgr.model is None:
+        X_dummy = np.random.rand(10, 37)
+        y_dummy = np.random.rand(10) * 100
+        train_data = lgb.Dataset(X_dummy, label=y_dummy)
+        model_mgr.model = lgb.train({"verbosity": -1}, train_data, num_boost_round=5)
+        model_mgr.version = "1"
+        model_mgr.stage = "TestFixture"
 
 
 @pytest.mark.asyncio
