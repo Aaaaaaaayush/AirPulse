@@ -30,7 +30,7 @@ Mumbai · Delhi · Bangalore · Chennai · Kolkata
 | 2 | Feature engineering & baseline model | ✅ Done |
 | 3 | Serving (FastAPI + frontend + Docker) | ✅ Done |
 | 4 | CI/CD (GitHub Actions) | ✅ Done |
-| 5 | Drift detection & automated retraining | ⬜ |
+| 5 | Drift detection & automated retraining | ✅ Done |
 | 6 | Orchestration & monitoring (k3s) | ⬜ |
 | 7 | Research write-up | ⬜ |
 

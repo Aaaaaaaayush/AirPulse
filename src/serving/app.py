@@ -318,10 +318,28 @@ def get_city_forecast(city: str = Query("mumbai", description="Target city name"
     )
 
 
-# Mount Static Files for Dashboard UI
+@app.get("/api/drift", tags=["Monitoring"])
+def get_drift_metrics():
+    """Returns current dataset & feature drift metrics."""
+    from src.monitoring.drift_detector import evaluate_data_drift
+    return evaluate_data_drift()
+
+
+@app.post("/api/drift/check", tags=["Monitoring"])
+def trigger_drift_check(threshold: float = Query(0.30, description="Drift share threshold")):
+    """Evaluates data drift and triggers retraining if threshold is exceeded."""
+    from src.monitoring.drift_detector import check_and_trigger_retrain
+    return check_and_trigger_retrain(drift_threshold=threshold)
+
+
+# Mount Static Files for Dashboard UI & Evidently AI Reports
 static_path = Path(__file__).parent / "static"
 if static_path.exists():
     app.mount("/static", StaticFiles(directory=str(static_path)), name="static")
+
+reports_path = Path(__file__).resolve().parent.parent.parent / "data" / "artifacts"
+reports_path.mkdir(parents=True, exist_ok=True)
+app.mount("/reports", StaticFiles(directory=str(reports_path)), name="reports")
 
 
 @app.get("/", response_class=FileResponse, tags=["UI"])
