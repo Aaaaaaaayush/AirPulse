@@ -29,6 +29,11 @@ infra/terraform/*.tfplan
 # ── MLflow local artifacts ──────────────────────────────────
 mlruns/
 mlartifacts/
+mlflow.db
+mlflow.db*
+*.sqlite
+*.sqlite3
+*.db
 
 # ── Docker ──────────────────────────────────────────────────
 *.tar
