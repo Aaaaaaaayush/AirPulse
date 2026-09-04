@@ -22,7 +22,6 @@ RUN pip install --no-cache-dir typing-extensions filelock jinja2 sympy fsspec ne
 # Copy application source code & data
 COPY src/ ./src/
 COPY data/ ./data/
-COPY mlflow.db ./mlflow.db
 
 # Expose FastAPI port
 EXPOSE 8000
