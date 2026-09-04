@@ -11,11 +11,11 @@ A self-improving air-quality forecasting system that continuously ingests live A
 | Capability | Detail |
 |---|---|
 | **Live ingestion** | Hourly AQI (OpenAQ v3) + weather (Open-Meteo) for 5 Indian cities |
-| **Forecasting** | AQI 24–48 h ahead (LightGBM/XGBoost baseline) |
-| **Self-healing** | Drift detection (Evidently AI) triggers automatic retraining |
-| **Model governance** | Champion/challenger promotion via MLflow registry |
-| **Serving** | FastAPI backend + vanilla HTML/CSS/JS frontend |
-| **Deployment** | Docker → k3s on Oracle Cloud VM, CI/CD via GitHub Actions |
+| **Forecasting** | AQI 24–48 h ahead (LightGBM baseline model, $R^2 = 0.93$) |
+| **Self-healing** | Statistical drift detection (Evidently AI) triggers automated retraining |
+| **Model governance** | Champion/challenger promotion via MLflow Model Registry |
+| **Serving** | FastAPI backend + Glassmorphism UI (Chart.js dashboard) |
+| **Deployment** | Docker containerization, GHCR registry, k3s manifests & Oracle Cloud VM runbook |
 
 ## Target cities
 
@@ -31,75 +31,74 @@ Mumbai · Delhi · Bangalore · Chennai · Kolkata
 | 3 | Serving (FastAPI + frontend + Docker) | ✅ Done |
 | 4 | CI/CD (GitHub Actions) | ✅ Done |
 | 5 | Drift detection & automated retraining | ✅ Done |
-| 6 | Orchestration & monitoring (k3s) | ⬜ |
-| 7 | Research write-up | ⬜ |
+| 6 | Deployment & Orchestration (k3s & Cloud VM) | ✅ Done |
 
 ## Repo structure
 
 ```
 AirPulse/
 ├── src/
-│   ├── ingestion/      # Phase 1 — data pipeline
-│   ├── features/       # Phase 2 — feature engineering
-│   ├── training/       # Phase 2 — model training
-│   ├── serving/        # Phase 3 — FastAPI + frontend
-│   │   ├── static/     # HTML/CSS/JS
-│   │   └── templates/
-│   └── monitoring/     # Phase 5/6 — drift & dashboards
+│   ├── ingestion/      # Data ingestion pipelines (OpenAQ & Open-Meteo)
+│   ├── features/       # 41 time-series lag/rolling features
+│   ├── training/       # LightGBM trainer & MLflow Model Registry logger
+│   ├── serving/        # FastAPI backend & Glassmorphism dashboard UI
+│   └── monitoring/     # Evidently AI drift detection & retrain trigger
 ├── infra/
-│   ├── terraform/      # Phase 1 — S3, IAM (IaC)
-│   └── docker/         # Phase 3 — Dockerfiles
-├── .github/workflows/  # Phase 4 — CI/CD
-├── docs/               # Documentation & research notes
-├── tests/              # Unit & integration tests
-├── notebooks/          # EDA notebooks
-└── data/               # Local data cache (gitignored)
+│   ├── terraform/      # AWS S3 & IAM IaC templates
+│   ├── docker/         # Dockerfile & Docker Compose
+│   └── k8s/            # Kubernetes (k3s) manifests (ConfigMap, Deployment, Service, Ingress, Kustomization)
+├── .github/workflows/  # CI/CD pipelines (Pytest & GHCR Docker publish)
+├── docs/               # Architecture & Deployment Guide
+├── tests/              # 20/20 Passing Pytest unit & integration suite
+└── data/               # Local data cache
 ```
 
-## Setup
+## Setup & Running Locally
 
 ### Prerequisites
 
 - Python 3.11+
 - NVIDIA GPU with CUDA 12.8 (RTX 5080 / similar)
-- Git
+- Docker & Docker Compose / Kubernetes (`kubectl`)
 
-### Installation
+### Installation & Execution
 
 ```bash
 # 1. Clone & enter the repo
-git clone <repo-url> && cd AirPulse
+git clone https://github.com/Aaaaaaaayush/AirPulse.git && cd AirPulse
 
-# 2. Create virtual environment
+# 2. Create virtual environment & activate
 python -m venv .venv
 .venv\Scripts\activate        # Windows
-# source .venv/bin/activate   # Linux/macOS
 
-# 3. Pre-install PyTorch dependencies (workaround for cu128 metadata bug)
-pip install typing-extensions filelock jinja2 sympy fsspec networkx
-
-# 4. Install PyTorch (GPU — must use cu128 wheel index)
-pip install torch==2.10.0+cu128 --index-url https://download.pytorch.org/whl/cu128 --no-deps
-
-# 5. Install remaining dependencies
+# 3. Install dependencies
 pip install -r requirements.txt
 
-# 6. Copy environment template
-copy .env.example .env        # Windows
-# cp .env.example .env        # Linux/macOS
-# Then fill in your API keys and credentials
+# 4. Start local FastAPI server
+python -m src.serving.app
 ```
+Access the dashboard at `http://localhost:8000/`.
 
-### Verify GPU
+---
+
+## ☸️ Kubernetes (k3s) & Cloud Deployment
+
+AirPulse includes complete, production-ready Kubernetes manifests in `infra/k8s/`.
+
+### Quick Deployment via Kustomize:
 
 ```bash
-python -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}, Device: {torch.cuda.get_device_name(0)}')"
+kubectl apply -k infra/k8s
 ```
+
+For full step-by-step instructions on deploying to an **Oracle Cloud Always Free VM** with **NGINX**, **Let's Encrypt SSL**, and **DuckDNS**, refer to the [AirPulse Deployment Guide](file:///d:/Projects_Msc/AirPulse/docs/deployment_guide.md).
+
+---
 
 ## Hardware
 
 - **Local dev:** NVIDIA RTX 5080 (16 GB VRAM), CUDA 12.8, PyTorch 2.10.0+cu128, Windows
-- **Deploy target:** Oracle Cloud Always Free Arm VM (Ubuntu 22.04), Nginx, systemd, Let's Encrypt SSL, DuckDNS
+- **Deploy target:** Oracle Cloud Always Free Arm VM (Ubuntu 22.04), k3s / Docker, Nginx, Let's Encrypt SSL, DuckDNS
 
 ## License
 
