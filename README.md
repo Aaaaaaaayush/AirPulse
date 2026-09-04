@@ -8,7 +8,7 @@
 
 A self-improving, production-grade air-quality forecasting system that continuously ingests real-time meteorological and AQI data, forecasts air pollution 24–48 hours ahead, and **autonomously retrains itself** when real-world distributions drift.
 
-> **Portfolio project #6** — demonstrating an end-to-end MLOps lifecycle: multi-source asynchronous ingestion pipelines, 41-feature time-series engineering, LightGBM model governance via MLflow, statistical drift detection with Evidently AI, automated GitHub Actions CI/CD to GHCR, and live cloud deployment on AWS EC2 with NGINX, Let's Encrypt TLS/SSL, and DuckDNS.
+> **Project intention** — demonstrating an end-to-end MLOps lifecycle: multi-source asynchronous ingestion pipelines, 41-feature time-series engineering, LightGBM model governance via MLflow, statistical drift detection with Evidently AI, automated GitHub Actions CI/CD to GHCR, and live cloud deployment on AWS EC2 with NGINX, Let's Encrypt TLS/SSL, and DuckDNS.
 
 ---
 
